@@ -1,0 +1,21 @@
+<ion-header>
+	<ion-navbar>
+		<ion-title>Add Position</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<ion-list no-lines>
+		<form [formGroup]="addPositionForm" (ngSubmit)="savePos()" >
+			<ion-item>
+				<ion-label floating>Position Name</ion-label>
+				<ion-input [(ngModel)]="posName" formControlName="posName" type="text"></ion-input>
+			</ion-item>
+			<br/>
+			<ion-buttons end>
+				<button ion-button round color="primary" type="submit">Save</button>
+			</ion-buttons>
+		</form>
+	</ion-list>
+	
+</ion-content>

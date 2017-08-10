@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Position List
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="addPosition()" >
+        <ion-icon name="add-circle"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-padding>
+  <ion-list>
+      <button ion-item *ngFor="let pos of positions" (click)="openMenu(pos.posName, pos.posId)" >
+        {{pos.posName}}
+      </button>
+  </ion-list>
+</ion-content>
