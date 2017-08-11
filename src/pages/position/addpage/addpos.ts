@@ -1,4 +1,4 @@
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import { NavController, AlertController } from 'ionic-angular';
 import { FormBuilder, Validators, FormGroup } from "@angular/forms/";
 import { Component } from '@angular/core';
@@ -24,6 +24,11 @@ export class AddPositionPage {
         if (this.posName == "") {
             alert('error');
         } else {
+            let parameter = JSON.stringify({
+                posName: this.posName
+            });
+            let headers = new Headers({ 'Content-Type': 'application/json' });
+            let options = new RequestOptions({ headers: headers });
             let alert = this.alertCtrl.create({
                 title: 'Confirmation',
                 message: 'Add this position ? "' + this.posName + '"',
@@ -32,7 +37,7 @@ export class AddPositionPage {
                         text: 'Add',
                         role: 'add',
                         handler: () => {
-                            this.http.post('http://10.8.104.90:9810/api/position/addposition?param=' + this.posName, this.posName)
+                            this.http.post('http://10.8.104.90:9810/api/position/addposition', parameter, options)
                             .subscribe(res => {
                                 this.successAlert(this.posName);
                             });

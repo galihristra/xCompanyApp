@@ -10,6 +10,7 @@ import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { PositionPage } from "../pages/position/position";
 import { AddPositionPage } from "../pages/position/addpage/addpos";
+import { EditPositionPage } from "../pages/position/editpage/editpos";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -23,7 +24,8 @@ import { RestapiProvider } from '../providers/restapi/restapi';
     HomePage,
     TabsPage,
     PositionPage,
-    AddPositionPage
+    AddPositionPage,
+    EditPositionPage
   ],
   imports: [
     BrowserModule,
@@ -38,7 +40,8 @@ import { RestapiProvider } from '../providers/restapi/restapi';
     HomePage,
     TabsPage,
     PositionPage,
-    AddPositionPage
+    AddPositionPage,
+    EditPositionPage
   ],
   providers: [
     StatusBar,

@@ -1,23 +1,38 @@
 import { Http } from '@angular/http';
-// import { RestapiProvider } from './../../providers/restapi/restapi';
 import { Component } from "@angular/core";
 import { NavController, LoadingController, ActionSheetController, AlertController } from "ionic-angular";
 import { Observable } from 'rxjs/Observable';
 import { AddPositionPage } from "../position/addpage/addpos";
+import { EditPositionPage } from "../position/editpage/editpos";
 
 @Component({
     selector: 'page-position',
     templateUrl: 'position.html'
 })
 export class PositionPage {
-    positions: Observable<any>;
+    positions: Array<any>;
+    loadedPositions: Array<any>;
+    searchInput: string;
     
     constructor(public navCtrl: NavController,
          public alertCtrl: AlertController,
           public http: Http,
            public loading: LoadingController,
             public action: ActionSheetController){
-        
+    }
+
+    filterItems(searchInput: string){
+        this.initializeItems();
+
+        if (searchInput && searchInput.trim() != '') {
+            this.positions = this.positions.filter((position) => {
+                return (position.posName.toLowerCase().indexOf(searchInput.toLowerCase()) > -1);
+            })
+        }
+    }
+
+    initializeItems(){
+        this.positions = this.loadedPositions;
     }
 
     ionViewDidEnter(){
@@ -26,13 +41,14 @@ export class PositionPage {
         });
         loading.present();
         this.http.get('http://10.8.104.90:9810/api/position/getallpositions').map(res => res.json())
-            .subscribe(data => {
-                this.positions = data;
-                loading.dismiss();
-                console.log(this.positions);
-            }, err => {
-                console.log("Error ! " + err);
-            });
+        .subscribe(data => {
+            this.loadedPositions = data;
+            this.initializeItems();
+            loading.dismiss();
+            console.log(this.positions);
+        }, err => {
+            console.log("Error ! " + err);
+        }); 
     }
 
     addPosition(){
@@ -55,6 +71,7 @@ export class PositionPage {
                     role: 'edit',
                     handler: () => {
                         console.log(position + ' edit position');
+                        this.navCtrl.push(EditPositionPage, { posId: posId, posName: position});
                     }
                 },
                 {

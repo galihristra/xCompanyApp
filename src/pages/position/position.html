@@ -12,6 +12,7 @@
 </ion-header>
 
 <ion-content no-padding>
+  <ion-searchbar [(ngModel)]='searchInput' (ionInput)='filterItems(this.searchInput)'></ion-searchbar>
   <ion-list>
       <button ion-item *ngFor="let pos of positions" (click)="openMenu(pos.posName, pos.posId)" >
         {{pos.posName}}
